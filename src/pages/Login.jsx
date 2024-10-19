@@ -5,16 +5,16 @@ function Login() {
     <div className="flex flex-col h-[100vh] bg-[#FAF9F9] items-center">
       <div className="flex justify-between py-[20px] px-[30px] w-full items-start">
         <img src={GTCOLogo} alt="GTCO Logo" className="w-[66px]" />
-        <button
+        {/* <button
           href="#"
           className="justify-self-center text-center px-[36px] h-[40px] bg-[#E04403] rounded-[8px] text-[16px] text-white hover:cursor-pointer"
         >
           Sign up
-        </button>
+        </button> */}
       </div>
 
       <div className="absolute h-screen grid place-content-center">
-        <div className=" bg-[#ffffff] px-[40px] py-[55px] drop-shadow-xl w-[440px] rounded-[20px] text-center ">
+        <div className=" bg-[#ffffff] px-[40px] py-[45px] drop-shadow-xl w-[440px] rounded-[20px] text-center ">
           <h2 className="text-[28px] text-center font-semibold pb-[15px]">
             User Login
           </h2>
@@ -47,13 +47,6 @@ function Login() {
               className="w-[100%] bg-[#E04403] rounded-[8px] h-[40px] text-white text-[13px] mb-[40px] hover:cursor-pointer"
             />
           </form>
-
-          <p>
-            Don't have an account?{" "}
-            <a href="#">
-              <b>Sign up now</b>
-            </a>
-          </p>
         </div>
       </div>
     </div>

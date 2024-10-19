@@ -1,25 +1,8 @@
 import React from "react";
 import StaffManagerTableContent from "./StaffManagerTableContent";
 
-const StaffManagementTable = () => {
-  const tableContents = [
-    {
-      sn: 1,
-      name: "Amarachi",
-      email: "amarachi@gmail.com",
-      phone: "+234 8178 799 923",
-      jobRole: "Tech",
-      startDate: "15-08-2023",
-    },
-    {
-      sn: 2,
-      name: "Funke",
-      email: "funke@gmail.com",
-      phone: "+234 8178 799 912",
-      jobRole: "Tech",
-      startDate: "15-03-2023",
-    },
-  ];
+const StaffManagementTable = (props) => {
+  const tableContents = props.filteredData;
   return (
     <table className="w-full text-[14px] font-['Plus Jakarta Sans']">
       <thead className="border-b-2 border-[#F1F0F0] ">
@@ -46,8 +29,9 @@ const StaffManagementTable = () => {
         </tr>
       </thead>
       <tbody>
-        <StaffManagerTableContent tableContent={tableContents[0]} />
-        <StaffManagerTableContent tableContent={tableContents[1]} />
+        {tableContents.map((item) => (
+          <StaffManagerTableContent key={item.sn} tableContent={item} />
+        ))}
       </tbody>
     </table>
   );

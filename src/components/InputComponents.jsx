@@ -6,7 +6,7 @@ const InputComponents = (props) => {
     <div>
       <label
         htmlFor={elementID}
-        className="block text-[13px] font-semibold text-[#A9A9A9] mb-[12px]"
+        className="block text-[13px] font-semibold text-gray-700 mb-[12px]"
       >
         {props.elementParameters.inputLabel}
       </label>
@@ -15,7 +15,7 @@ const InputComponents = (props) => {
         name=""
         id={elementID}
         placeholder={props.elementParameters.placeholder}
-        className="block outline-none border-2 px-[15px] py-[12px] w-full mb-[36px] rounded-[8px]"
+        className="block outline-none border-2 border-gray-700 px-[15px] py-[12px] w-full mb-[36px] rounded-[8px]"
       />
     </div>
   );
