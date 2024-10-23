@@ -1,8 +1,14 @@
 import GTCOLogo from "../assets/GTBank-logo.svg";
+import { motion } from "framer-motion";
 
 function Login() {
   return (
-    <div className="flex flex-col h-[100vh] bg-[#FAF9F9] items-center">
+    <motion.div
+      className="flex flex-col h-[100vh] bg-[#FAF9F9] items-center"
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <div className="flex justify-between py-[20px] px-[30px] w-full items-start">
         <img src={GTCOLogo} alt="GTCO Logo" className="w-[66px]" />
         {/* <button
@@ -49,7 +55,7 @@ function Login() {
           </form>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

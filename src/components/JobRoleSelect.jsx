@@ -15,7 +15,7 @@ const JobRoleSelect = () => {
         className="block outline-none border-2 border-gray-700 px-[15px] py-[12px] w-full mb-[36px] rounded-[8px] text-gray-700 appearance-none"
       >
         <option value="" className="px-[15px] ">
-          --Select role--
+          Tech
         </option>
       </select>
     </div>

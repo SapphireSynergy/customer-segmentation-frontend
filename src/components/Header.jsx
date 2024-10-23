@@ -3,12 +3,20 @@ import GTCOLogo from "../assets/GTBank-logo.svg";
 import accountImg from "../assets/UserAccount.jpg";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const location = useLocation();
   return (
-    <div className="flex gap-[4rem] px-[20px] pt-[12px] pb-[2px] border-b-2 mb-[2rem]">
-      <img src={GTCOLogo} alt="GTCO Logo" className="w-[50px]" />
+    <motion.div
+      className="flex gap-[4rem] px-[20px] pt-[20px] pb-[20px] border-b-2 mb-[2rem]"
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <Link to="/statistics/summary">
+        <img src={GTCOLogo} alt="GTCO Logo" className="w-[50px]" />
+      </Link>
       <div className="flex justify-between w-full">
         <div className="flex gap-[2rem] text-[#8D8885] font-semibold items-center">
           <Link
@@ -39,7 +47,7 @@ const Header = () => {
                 : "hover:text-[#E04403] hover:border-b-[3px] hover:border-[#E04403] pb-[5px]"
             }`}
           >
-            PowerBI Segmentation
+            Analysis
           </Link>
           <Link
             to="/algorithm-settings"
@@ -53,7 +61,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex gap-[1.5rem] items-center">
-          <img src={accountImg} alt="account-img" />
+          <img src={accountImg} alt="account-img" className="w-[40px]" />
           <a
             href="/"
             className="px-[30px] py-[10px] bg-[#E04403] rounded-[8px] text-white"
@@ -62,7 +70,7 @@ const Header = () => {
           </a>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

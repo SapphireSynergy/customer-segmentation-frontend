@@ -30,7 +30,13 @@ const StaffManagementTable = (props) => {
       </thead>
       <tbody>
         {tableContents.map((item) => (
-          <StaffManagerTableContent key={item.sn} tableContent={item} />
+          <StaffManagerTableContent
+            key={item.sn}
+            tableContent={item}
+            setSelectedStaff={props.setSelectedStaff}
+            openEditModal={props.openEditModal}
+            openDeleteModal={props.openDeleteModal}
+          />
         ))}
       </tbody>
     </table>

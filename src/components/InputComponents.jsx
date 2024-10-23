@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 const InputComponents = (props) => {
   const elementID = `input-element-${props.elementParameters.elementID}`;
+  const [inputField, setCurrentInputField] = useState(
+    props.elementParameters.value ? props.elementParameters.value : null
+  );
+
+  const handleInputChange = (event) => {
+    props.elementParameters.value && setCurrentInputField(event.target.value);
+    // console.log(inputField);
+  };
   return (
     <div>
       <label
@@ -15,6 +23,8 @@ const InputComponents = (props) => {
         name=""
         id={elementID}
         placeholder={props.elementParameters.placeholder}
+        value={inputField}
+        onChange={handleInputChange}
         className="block outline-none border-2 border-gray-700 px-[15px] py-[12px] w-full mb-[36px] rounded-[8px]"
       />
     </div>
