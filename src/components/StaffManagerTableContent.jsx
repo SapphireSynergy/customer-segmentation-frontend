@@ -16,32 +16,27 @@ const StaffManagerTableContent = (props) => {
 
   return (
     <>
-      <tr className="text-[#1D1B1B]">
+      <tr className="text-[#1D1B1B] border-t-2 border-[#F1F0F0]">
         <td className="p-[20px] text-[#8D8885] font-semibold">
           {props.tableContent.sn}
         </td>
-        <td className="p-[20px]">
-          <p className="text-[#1D1B1B] font-medium">
-            {props.tableContent.name}
-          </p>
+        <td className="p-[10px]">
+          <p className="text-[#1D1B1B] ">{props.tableContent.name}</p>
         </td>
-        <td className="p-[20px]">
+        <td className="p-[10px]">
           <p>{props.tableContent.email}</p>
         </td>
-        <td className="p-[20px]">
+        <td className="p-[10px]">
           <p>{props.tableContent.phone}</p>
         </td>
-        <td className="p-[20px]">
+        <td className="p-[10px]">
           <p>{props.tableContent.jobRole}</p>
         </td>
-        <td className="p-[20px]">
+        <td className="p-[10px]">
           <p>{props.tableContent.startDate}</p>
         </td>
-        <td className="p-[20px]">
-          <button
-            onClick={openTheEditModal}
-            className="mr-[5px] flex items-center"
-          >
+        <td className="p-[10px] flex items-center justify-center">
+          <button onClick={openTheEditModal} className="mr-[5px]">
             <img src={editIcon} alt="edit" className="w-[30px]" />
           </button>
           <button onClick={openTheDeleteModal}>
