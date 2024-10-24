@@ -11,7 +11,7 @@ const StaffManagementTable = (props) => {
             S/N
           </th>
           <th scope="col" className="p-[25px] text-left pl-[10px]">
-            Name
+            Full Name
           </th>
           <th scope="col" className="p-[25px] text-left pl-[10px]">
             Email
@@ -20,7 +20,7 @@ const StaffManagementTable = (props) => {
             Phone number
           </th>
           <th scope="col" className="p-[25px] text-left pl-[10px]">
-            Job Role
+            Admin role
           </th>
           <th scope="col" className="p-[25px] text-left pl-[10px]">
             Resume Date

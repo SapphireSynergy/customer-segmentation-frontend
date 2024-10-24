@@ -1,23 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import InputComponents from "./InputComponents";
-import JobRoleSelect from "./JobRoleSelect";
 import { motion, AnimatePresence } from "framer-motion";
 
 const AddStaffs = (props) => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    isAdmin: false,
+    password: "",
+  });
+
   const objectListOFInputElements = [
     {
       elementID: 0,
-      placeholder: "First name, lastname",
-      inputLabel: "Name",
+      placeholder: "Enter staff first name...",
+      inputLabel: "First Name",
+      value: formData.firstName,
+      onChange: (value) => setFormData({ ...formData, firstName: value }),
     },
     {
       elementID: 1,
-      placeholder: "Enter staff email",
+      placeholder: "Enter staff last name...",
+      inputLabel: "Last Name",
+      value: formData.lastName,
+      onChange: (value) => setFormData({ ...formData, lastName: value }),
+    },
+    {
+      elementID: 2,
+      placeholder: "Enter staff email address...",
       inputLabel: "Email",
+      value: formData.email,
+      onChange: (value) => setFormData({ ...formData, email: value }),
     },
   ];
+
+  console.log("Working");
+  console.log(formData);
+
+  const handleSubmit = async () => {
+    const staffData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      isAdmin: formData.isAdmin,
+      password: formData.password,
+    };
+
+    try {
+      const response = await fetch("your-endpoint-url", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(staffData),
+      });
+
+      if (response.ok) {
+        alert("Staff created successfully!");
+        props.close(); // Close the modal after success
+      } else {
+        alert("Failed to create staff.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <AnimatePresence>
       {props.show && (
@@ -41,9 +92,40 @@ const AddStaffs = (props) => {
             {objectListOFInputElements.map((item) => (
               <InputComponents key={item.elementID} elementParameters={item} />
             ))}
-            <JobRoleSelect />
 
-            <div className="relative h-[4rem]">
+            {/* Password input field */}
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-[13px] font-semibold text-gray-700 mb-[12px]"
+              >
+                Password:
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter password..."
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+                className="block outline-none border-2 border-gray-700 px-[15px] py-[12px] w-full mb-[15px] rounded-[8px]"
+              />
+            </div>
+
+            <div className="flex gap-[15px] items-center mb-[10px]">
+              <input
+                type="checkbox"
+                id="admin-role"
+                checked={formData.isAdmin}
+                onChange={(e) => {
+                  setFormData({ ...formData, isAdmin: e.target.checked });
+                }}
+              />
+              <label htmlFor="admin-role">Admin</label>
+            </div>
+
+            <div className="relative h-[5rem]">
               <div className="flex absolute gap-[10px] bottom-[25px] right-0">
                 <button
                   className="rounded-[8px] px-[20px] py-[12px] text-[16px] font-semibold text-[#1A1A1A] bg-[#F2F2F2] block"
@@ -51,8 +133,11 @@ const AddStaffs = (props) => {
                 >
                   Cancel
                 </button>
-                <button className="rounded-[8px] px-[20px] py-[12px] text-[16px] font-semibold text-white bg-[#E04403]">
-                  Save & Send invite
+                <button
+                  className="rounded-[8px] px-[20px] py-[12px] text-[16px] font-semibold text-white bg-[#E04403]"
+                  onClick={handleSubmit}
+                >
+                  Create Account
                 </button>
               </div>
             </div>

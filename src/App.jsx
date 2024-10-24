@@ -6,27 +6,34 @@ import StaffManagement from "./pages/StaffManagement";
 import ComponentViews from "./pages/ComponentViews";
 import DashboardSegmentation from "./pages/DashboardSegmentation";
 import AlgorithmSettings from "./pages/AlgorithmSettings";
+import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />}></Route>
+          <Route path="/" element={<Login />} />
           <Route
             path="statistics/summary"
-            element={<SummaryStatistics />}
-          ></Route>
-          <Route path="staff-management" element={<StaffManagement />}></Route>
+            element={<PrivateRoute element={SummaryStatistics} />}
+          />
+          <Route
+            path="staff-management"
+            element={<PrivateRoute element={StaffManagement} />}
+          />
           <Route
             path="dashboard-segmentation"
-            element={<DashboardSegmentation />}
-          ></Route>
+            element={<PrivateRoute element={DashboardSegmentation} />}
+          />
           <Route
             path="/algorithm-settings"
-            element={<AlgorithmSettings />}
-          ></Route>
-          <Route path="page-tests" element={<ComponentViews />}></Route>
+            element={<PrivateRoute element={AlgorithmSettings} />}
+          />
+          <Route
+            path="page-tests"
+            element={<PrivateRoute element={ComponentViews} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

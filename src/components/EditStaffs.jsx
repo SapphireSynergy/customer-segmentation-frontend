@@ -1,39 +1,68 @@
 import React, { useState, useEffect } from "react";
 import InputComponents from "./InputComponents";
-import JobRoleSelect from "./JobRoleSelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence } from "framer-motion";
 
 const EditStaffs = (props) => {
-  const [objectListOFInputElements, setObjectListOfInputElements] = useState(
-    []
-  );
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    isAdmin: false,
+  });
+
   useEffect(() => {
     if (props.dataContent !== null) {
-      const inputElements = [
-        {
-          elementID: 0,
-          placeholder: "First name, lastname",
-          inputLabel: "Name",
-          value: props.dataContent.name,
-        },
-        {
-          elementID: 1,
-          placeholder: "eg. akin.obi@gmail.com",
-          inputLabel: "Email",
-          value: props.dataContent.email,
-        },
-        {
-          elementID: 2,
-          placeholder: "+234...",
-          inputLabel: "Phone number",
-          value: props.dataContent.phone,
-        },
-      ];
-      setObjectListOfInputElements(inputElements);
+      setFormData({
+        firstName: props.dataContent.firstName || "",
+        lastName: props.dataContent.lastName || "",
+        email: props.dataContent.email || "",
+        phone: props.dataContent.phone || "",
+        isAdmin: props.dataContent.isAdmin || false,
+      });
     }
   }, [props.dataContent]);
+
+  const objectListOFInputElements = [
+    {
+      elementID: 0,
+      placeholder: "Staff first name",
+      inputLabel: "First Name",
+      value: formData.firstName,
+      onChange: (value) => setFormData({ ...formData, firstName: value }),
+    },
+    {
+      elementID: 1,
+      placeholder: "Staff last name",
+      inputLabel: "Last Name",
+      value: formData.lastName,
+      onChange: (value) => setFormData({ ...formData, lastName: value }),
+    },
+    {
+      elementID: 2,
+      placeholder: "eg. akin.obi@gmail.com",
+      inputLabel: "Email",
+      value: formData.email,
+      onChange: (value) => setFormData({ ...formData, email: value }),
+    },
+    {
+      elementID: 3,
+      placeholder: "+234...",
+      inputLabel: "Phone number",
+      value: formData.phone,
+      onChange: (value) => setFormData({ ...formData, phone: value }),
+    },
+  ];
+
+  console.log(formData);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    // Perform your update logic here
+  };
 
   return (
     <AnimatePresence>
@@ -55,48 +84,33 @@ const EditStaffs = (props) => {
               </button>
             </div>
 
-            <form action="" className="mb-[20px]">
+            <form onSubmit={handleSubmit} className="mb-[20px]">
               {objectListOFInputElements.map((item) => (
                 <InputComponents
                   key={item.elementID}
                   elementParameters={item}
                 />
               ))}
-              <JobRoleSelect />
 
-              <label
-                htmlFor="delete-account"
-                className="block text-[13px] font-semibold text-[#A9A9A9] mb-[12px]"
-              >
-                Delete Account
-              </label>
-              <div className="h-[55px] bg-[#E04403] rounded-[8px] w-[180px] flex justify-center gap-[10px] items-center cursor-pointer">
-                <FontAwesomeIcon
-                  icon={faTrashAlt}
-                  className="text-white w-[14px]"
-                />
+              <div className="flex gap-[15px] items-center mb-[10px]">
                 <input
-                  type="submit"
-                  value="Delete Account"
-                  id="delete-account"
-                  className="text-white font-semibold text-[16px]"
+                  type="checkbox"
+                  id="admin-role"
+                  checked={formData.isAdmin}
+                  onChange={(e) =>
+                    setFormData({ ...formData, isAdmin: e.target.checked })
+                  }
                 />
+                <label htmlFor="admin-role">Admin</label>
               </div>
-            </form>
 
-            <div className="relative h-[4rem]">
-              <div className="flex absolute gap-[10px] bottom-[25px] right-0">
-                <button
-                  className="rounded-[8px] px-[20px] py-[12px] text-[16px] font-semibold text-[#1A1A1A] bg-[#F2F2F2] block"
-                  onClick={props.close}
-                >
-                  Cancel
-                </button>
-                <button className="rounded-[8px] px-[20px] py-[12px] text-[16px] font-semibold text-white bg-[#E04403]">
-                  Next
-                </button>
-              </div>
-            </div>
+              <button
+                type="submit"
+                className="rounded-[8px] px-[20px] py-[12px] text-[16px] font-semibold text-white bg-[#E04403]"
+              >
+                Save Changes
+              </button>
+            </form>
           </motion.div>
         </div>
       )}

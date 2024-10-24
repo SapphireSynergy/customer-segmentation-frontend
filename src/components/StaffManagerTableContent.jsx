@@ -16,12 +16,12 @@ const StaffManagerTableContent = (props) => {
 
   return (
     <>
-      <tr className="text-[#1D1B1B] border-t-2 border-[#F1F0F0]">
+      <tr className="text-[#1D1B1B] border-t-2 border-[#F1F0F0] hover:bg-gray-100">
         <td className="p-[20px] text-[#8D8885] font-semibold">
           {props.tableContent.sn}
         </td>
         <td className="p-[10px]">
-          <p className="text-[#1D1B1B] ">{props.tableContent.name}</p>
+          <p className="text-[#1D1B1B] ">{`${props.tableContent.firstName} ${props.tableContent.lastName}`}</p>
         </td>
         <td className="p-[10px]">
           <p>{props.tableContent.email}</p>
@@ -30,7 +30,7 @@ const StaffManagerTableContent = (props) => {
           <p>{props.tableContent.phone}</p>
         </td>
         <td className="p-[10px]">
-          <p>{props.tableContent.jobRole}</p>
+          <p>{props.tableContent.isAdmin ? "Yes" : "No"}</p>
         </td>
         <td className="p-[10px]">
           <p>{props.tableContent.startDate}</p>

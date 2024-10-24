@@ -9,18 +9,20 @@ import ConfirmDelete from "../components/ConfirmDelete";
 const tableContents = [
   {
     sn: 1,
-    name: "Amarachi",
+    firstName: "Amarachi",
+    lastName: "Obi",
     email: "amarachi@gmail.com",
     phone: "+234 8178 799 923",
-    jobRole: "Tech",
+    isAdmin: false,
     startDate: "15-08-2023",
   },
   {
     sn: 2,
-    name: "Funke",
+    firstName: "Funke",
+    lastName: "Ojo",
     email: "funke@gmail.com",
     phone: "+234 8178 799 912",
-    jobRole: "Tech",
+    isAdmin: false,
     startDate: "15-03-2023",
   },
 ];
@@ -59,9 +61,9 @@ const StaffManagement = () => {
   useEffect(() => {
     const filtered = tableContents.filter(
       (item) =>
-        item.name.toLowerCase().includes(searchTerm) ||
+        item.firstName.toLowerCase().includes(searchTerm) ||
         item.email.toLocaleLowerCase().includes(searchTerm) ||
-        item.jobRole.toLowerCase().includes(searchTerm) ||
+        item.lastName.toLowerCase().includes(searchTerm) ||
         item.phone.toLowerCase().includes(searchTerm)
     );
     setFilteredData(filtered);

@@ -1,12 +1,18 @@
 import React from "react";
+import Cookies from "js-cookie";
 import GTCOLogo from "../assets/GTBank-logo.svg";
 import accountImg from "../assets/UserAccount.jpg";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+    Cookies.remove("access_token");
+    navigate("/");
+  };
   return (
     <motion.div
       className="flex gap-[4rem] px-[20px] pt-[20px] pb-[20px] border-b-2 mb-[2rem]"
@@ -62,12 +68,12 @@ const Header = () => {
         </div>
         <div className="flex gap-[1.5rem] items-center">
           <img src={accountImg} alt="account-img" className="w-[40px]" />
-          <a
-            href="/"
+          <button
+            onClick={handleSignOut}
             className="px-[30px] py-[10px] bg-[#E04403] rounded-[8px] text-white"
           >
             Sign out
-          </a>
+          </button>
         </div>
       </div>
     </motion.div>
