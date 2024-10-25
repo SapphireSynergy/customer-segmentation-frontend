@@ -17,23 +17,18 @@ const StaffManagementTable = (props) => {
             Email
           </th>
           <th scope="col" className="p-[25px] text-left pl-[10px]">
-            Phone number
-          </th>
-          <th scope="col" className="p-[25px] text-left pl-[10px]">
             Admin role
-          </th>
-          <th scope="col" className="p-[25px] text-left pl-[10px]">
-            Resume Date
           </th>
           <th scope="col" className="p-[25px] text-left pl-[10px]"></th>
         </tr>
       </thead>
       <tbody>
-        {tableContents.map((item) => (
+        {tableContents.map((item, index) => (
           <StaffManagerTableContent
-            key={item.sn}
+            key={item.id}
             tableContent={item}
             setSelectedStaff={props.setSelectedStaff}
+            serialNumber={index + 1}
             openEditModal={props.openEditModal}
             openDeleteModal={props.openDeleteModal}
           />

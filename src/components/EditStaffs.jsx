@@ -3,6 +3,7 @@ import InputComponents from "./InputComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence } from "framer-motion";
+import Cookies from "js-cookie";
 
 const EditStaffs = (props) => {
   const [formData, setFormData] = useState({
@@ -11,19 +12,24 @@ const EditStaffs = (props) => {
     email: "",
     phone: "",
     isAdmin: false,
+    password: "",
   });
+
+  const [allowEditPassword, setAllowEditPassword] = useState(false);
 
   useEffect(() => {
     if (props.dataContent !== null) {
       setFormData({
-        firstName: props.dataContent.firstName || "",
-        lastName: props.dataContent.lastName || "",
+        firstName: props.dataContent.first_name || "",
+        lastName: props.dataContent.last_name || "",
         email: props.dataContent.email || "",
-        phone: props.dataContent.phone || "",
-        isAdmin: props.dataContent.isAdmin || false,
+        isAdmin: props.dataContent.is_admin || false,
+        password: props.dataContent.password || "",
       });
     }
   }, [props.dataContent]);
+
+  const isUserAdmin = true;
 
   const objectListOFInputElements = [
     {
@@ -47,23 +53,46 @@ const EditStaffs = (props) => {
       value: formData.email,
       onChange: (value) => setFormData({ ...formData, email: value }),
     },
-    {
-      elementID: 3,
-      placeholder: "+234...",
-      inputLabel: "Phone number",
-      value: formData.phone,
-      onChange: (value) => setFormData({ ...formData, phone: value }),
-    },
   ];
 
-  console.log(formData);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Perform your update logic here
-  };
+    const staffData = {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      is_admin: formData.isAdmin,
+      password: formData.password,
+    };
 
+    try {
+      const token = Cookies.get("access_token");
+      const response = await fetch(
+        `${props.baseAPIURL}/staff/update2/${props.dataContent.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(staffData),
+        }
+      );
+
+      if (response.ok) {
+        alert("Staff updated successfully!");
+        props.close(); // Close the modal after success
+      } else {
+        const errorResponse = await response.json();
+        alert(
+          `Failed to update staff: ${errorResponse.detail || "Unknown error"}`
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while creating staff.");
+    }
+  };
   return (
     <AnimatePresence>
       {props.show && (
@@ -91,7 +120,6 @@ const EditStaffs = (props) => {
                   elementParameters={item}
                 />
               ))}
-
               <div className="flex gap-[15px] items-center mb-[10px]">
                 <input
                   type="checkbox"
@@ -101,9 +129,43 @@ const EditStaffs = (props) => {
                     setFormData({ ...formData, isAdmin: e.target.checked })
                   }
                 />
-                <label htmlFor="admin-role">Admin</label>
+                <label htmlFor="admin-role">Make Admin</label>
+              </div>
+              <div className="flex gap-[15px] items-center mb-[10px]">
+                <input
+                  type="checkbox"
+                  name=""
+                  id="edit-password"
+                  disabled={!isUserAdmin}
+                  value={allowEditPassword}
+                  onChange={(event) =>
+                    setAllowEditPassword(event.target.checked)
+                  }
+                />
+                <label htmlFor="edit-password">Update staff Password?</label>
               </div>
 
+              {/* Password input field */}
+              {allowEditPassword && (
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-[13px] font-semibold text-gray-700 mb-[12px]"
+                  >
+                    Password:
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password..."
+                    value={formData.password}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
+                    className="block outline-none border-2 border-gray-700 px-[15px] py-[12px] w-full mb-[15px] rounded-[8px]"
+                  />
+                </div>
+              )}
               <button
                 type="submit"
                 className="rounded-[8px] px-[20px] py-[12px] text-[16px] font-semibold text-white bg-[#E04403]"

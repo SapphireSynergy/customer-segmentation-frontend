@@ -25,7 +25,7 @@ function Login() {
 
       const data = await response.json();
       if (response.ok) {
-        Cookies.set("access_token", data.token, { expires: 7 });
+        Cookies.set("access_token", data.access, { expires: 7 });
 
         navigate("/statistics/summary");
       } else {

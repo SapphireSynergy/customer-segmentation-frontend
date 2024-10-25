@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import GTCOLogo from "../assets/GTBank-logo.svg";
 import accountImg from "../assets/UserAccount.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import LoggedInUserInfo from "./LoggedInUserInfo";
 
 const Header = () => {
   const location = useLocation();
@@ -13,6 +14,14 @@ const Header = () => {
     Cookies.remove("access_token");
     navigate("/");
   };
+  const [isAdmin, setAdminState] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
+  const { userData, error } = LoggedInUserInfo(API_URL);
+  useEffect(() => {
+    if (userData) {
+      setAdminState(userData.is_admin);
+    }
+  }, [userData]);
   return (
     <motion.div
       className="flex gap-[4rem] px-[20px] pt-[20px] pb-[20px] border-b-2 mb-[2rem]"
@@ -35,16 +44,18 @@ const Header = () => {
           >
             Home
           </Link>
-          <Link
-            to="/staff-management"
-            className={`${
-              location.pathname === "/staff-management"
-                ? "text-[#E04403] border-b-[3px] border-[#E04403] pb-[5px]"
-                : "hover:text-[#E04403] hover:border-b-[3px] hover:border-[#E04403] pb-[5px]"
-            }`}
-          >
-            Staff Management
-          </Link>
+          {isAdmin && (
+            <Link
+              to="/staff-management"
+              className={`${
+                location.pathname === "/staff-management"
+                  ? "text-[#E04403] border-b-[3px] border-[#E04403] pb-[5px]"
+                  : "hover:text-[#E04403] hover:border-b-[3px] hover:border-[#E04403] pb-[5px]"
+              }`}
+            >
+              Staff Management
+            </Link>
+          )}
           <Link
             to="/dashboard-segmentation"
             className={`${

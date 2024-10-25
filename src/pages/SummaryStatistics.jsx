@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { format } from "date-fns";
 import SummaryCards from "../components/SummaryCards";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import AddStaffs from "../components/AddStaffs";
+import LoggedInUserInfo from "../components/LoggedInUserInfo";
 
 const SummaryStatistics = () => {
-  const firstName = "Yemisi";
+  const [firstName, setFirstName] = useState("");
+  const [isAdmin, setAdminState] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
+  const { userData, error } = LoggedInUserInfo(API_URL);
+  useEffect(() => {
+    if (userData) {
+      setFirstName(userData.first_name);
+      setAdminState(userData.is_admin);
+    }
+  }, [userData]);
+
   const currentDate = format(new Date(), "EEEE, dd MMMM yyyy");
   const summaryCardsList = [
     { id: 0, title: "TOTAL ACCOUNTS", value: 5518 },
@@ -41,12 +52,14 @@ const SummaryStatistics = () => {
               >
                 View Analysis
               </Link>
-              <button
-                onClick={openModal}
-                className="px-[20px] py-[15px] bg-[#E04403] text-white rounded-[8px]"
-              >
-                + Staff Member
-              </button>
+              {isAdmin && (
+                <button
+                  onClick={openModal}
+                  className="px-[20px] py-[15px] bg-[#E04403] text-white rounded-[8px]"
+                >
+                  + Staff Member
+                </button>
+              )}
             </div>
           </motion.div>
 
@@ -66,7 +79,7 @@ const SummaryStatistics = () => {
           </div>
         </motion.div>
       </div>
-      <AddStaffs show={isModalOpen} close={closeModal} />
+      <AddStaffs show={isModalOpen} close={closeModal} baseAPIURL={API_URL} />
     </>
   );
 };

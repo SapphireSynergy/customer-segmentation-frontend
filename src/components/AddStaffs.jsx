@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import InputComponents from "./InputComponents";
 import { motion, AnimatePresence } from "framer-motion";
+import Cookies from "js-cookie";
 
 const AddStaffs = (props) => {
   const [formData, setFormData] = useState({
@@ -37,23 +38,22 @@ const AddStaffs = (props) => {
     },
   ];
 
-  console.log("Working");
-  console.log(formData);
-
   const handleSubmit = async () => {
     const staffData = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
+      first_name: formData.firstName,
+      last_name: formData.lastName,
       email: formData.email,
-      isAdmin: formData.isAdmin,
+      is_admin: formData.isAdmin,
       password: formData.password,
     };
 
     try {
-      const response = await fetch("your-endpoint-url", {
+      const token = Cookies.get("access_token");
+      const response = await fetch(`${props.baseAPIURL}/staffs/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(staffData),
       });
@@ -62,10 +62,14 @@ const AddStaffs = (props) => {
         alert("Staff created successfully!");
         props.close(); // Close the modal after success
       } else {
-        alert("Failed to create staff.");
+        const errorResponse = await response.json();
+        alert(
+          `Failed to create staff: ${errorResponse.detail || "Unknown error"}`
+        );
       }
     } catch (error) {
       console.error("Error:", error);
+      alert("An error occurred while creating staff.");
     }
   };
 

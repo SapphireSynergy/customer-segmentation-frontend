@@ -6,27 +6,14 @@ import StaffManagementTable from "../components/StaffManagementTable";
 import AddStaffs from "../components/AddStaffs";
 import EditStaffs from "../components/EditStaffs";
 import ConfirmDelete from "../components/ConfirmDelete";
-const tableContents = [
-  {
-    sn: 1,
-    firstName: "Amarachi",
-    lastName: "Obi",
-    email: "amarachi@gmail.com",
-    phone: "+234 8178 799 923",
-    isAdmin: false,
-    startDate: "15-08-2023",
-  },
-  {
-    sn: 2,
-    firstName: "Funke",
-    lastName: "Ojo",
-    email: "funke@gmail.com",
-    phone: "+234 8178 799 912",
-    isAdmin: false,
-    startDate: "15-03-2023",
-  },
-];
+import useFetchStaffData from "../components/FetchStaffData";
+
 const StaffManagement = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const { tableContents, error, refetch } = useFetchStaffData(API_URL);
+  if (error) {
+    console.log(`Error: ${error}`);
+  }
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState(tableContents);
 
@@ -46,7 +33,8 @@ const StaffManagement = () => {
     // setSelectedStaff(staffData);
     setIsEditModalOpen(true);
   };
-  const closeEditModal = () => {
+  const closeEditModal = async () => {
+    await refetch();
     setSelectedStaff(null);
     setIsEditModalOpen(false);
   };
@@ -61,10 +49,9 @@ const StaffManagement = () => {
   useEffect(() => {
     const filtered = tableContents.filter(
       (item) =>
-        item.firstName.toLowerCase().includes(searchTerm) ||
+        item.first_name.toLowerCase().includes(searchTerm) ||
         item.email.toLocaleLowerCase().includes(searchTerm) ||
-        item.lastName.toLowerCase().includes(searchTerm) ||
-        item.phone.toLowerCase().includes(searchTerm)
+        item.last_name.toLowerCase().includes(searchTerm)
     );
     setFilteredData(filtered);
   }, [searchTerm, tableContents]);
@@ -112,12 +99,17 @@ const StaffManagement = () => {
           </div>
         </motion.div>
       </div>
-      <AddStaffs show={isAddModalOpen} close={closeAddModal} />
+      <AddStaffs
+        show={isAddModalOpen}
+        close={closeAddModal}
+        baseAPIURL={API_URL}
+      />
 
       <EditStaffs
         show={isEditModalOpen}
         close={closeEditModal}
         dataContent={selectedStaff}
+        baseAPIURL={API_URL}
       />
       <ConfirmDelete show={isDeleteModalOpen} close={closeDeleteModal} />
     </div>
