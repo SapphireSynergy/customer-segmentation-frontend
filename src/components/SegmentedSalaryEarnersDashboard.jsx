@@ -9,7 +9,7 @@ const SegmentedSalaryEarnersDashboard = () => {
 
     // Set dimensions similar to TransactionDashboard component
     const containerWidth = "1250px";
-    const containerHeight = "700px"; // Adjust height as per the TransactionDashboard
+    const containerHeight = "800px"; // Adjust height as per the TransactionDashboard
 
     vizElement.style.width = containerWidth;
     vizElement.style.height = containerHeight;
