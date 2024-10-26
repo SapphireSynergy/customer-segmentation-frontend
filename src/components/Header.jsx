@@ -74,7 +74,7 @@ const Header = () => {
                 : "hover:text-[#E04403] hover:border-b-[3px] hover:border-[#E04403] pb-[5px]"
             }`}
           >
-            Algorithm Settings
+            Salary Accounts Details
           </Link>
         </div>
         <div className="flex gap-[1.5rem] items-center">

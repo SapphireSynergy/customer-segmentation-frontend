@@ -9,8 +9,8 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "Female", value: 57.21 },
-  { name: "Male", value: 42.79 },
+  { name: "Salary Accounts", value: 63.97 },
+  { name: "Non Salary Accounts", value: 36.03 },
 ];
 
 const COLORS = ["#e04403", "#f0a787"]; // Female: #e04403, Male: #f0a787

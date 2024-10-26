@@ -36,7 +36,7 @@ const SummaryStatistics = () => {
   const currentDate = format(new Date(), "EEEE, dd MMMM yyyy");
   const summaryCardsList = [
     { id: 0, title: "TOTAL ACCOUNTS", value: 5518, icon: accountIcon },
-    { id: 1, title: "SALARY ACCOUNTS DETECTED", value: 4223, icon: salaryIcon },
+    { id: 1, title: "SALARY ACCOUNTS DETECTED", value: 3530, icon: salaryIcon },
     {
       id: 2,
       title: "NUMBER OF STAFF",
@@ -92,22 +92,22 @@ const SummaryStatistics = () => {
           </div>
 
           <h1 className="text-[19px] text-[#18181B] font-semibold mb-[15px]">
-            Quick Overview
+            Quick Charts Overview
           </h1>
-          <div className="grid grid-cols-[0.7fr_0.5fr_1fr] gap-[20px]">
-            <div className="p-[20px] border-2 border-[#E1E6EC] rounded-[8px]">
+          <div className="grid grid-cols-[1.1fr_0.5fr_1fr] gap-[20px]">
+            <div className="p-[15px] border-2 border-[#E1E6EC] rounded-[8px]">
               <h2 className="text-[16px] text-[#303437]">
-                Gender Distribution of Customers
+                Accounts Type Distribution [Detected]
               </h2>
               <GenderPieChart />
             </div>
-            <div className="p-[20px] border-2 border-[#E1E6EC] rounded-[8px]">
+            <div className="p-[15px] border-2 border-[#E1E6EC] rounded-[8px]">
               <h2 className="text-[16px] text-[#303437]">
                 Average Transaction Amount: [Credit vs. Debit]
               </h2>
               <AverageTransactionAmountBarChart />
             </div>
-            <div className="p-[20px] border-2 border-[#E1E6EC] rounded-[8px]">
+            <div className="p-[15px] border-2 border-[#E1E6EC] rounded-[8px]">
               <h2 className="text-[16px] text-[#303437]">
                 Geographical Distribution of Customers in Nigeria
               </h2>

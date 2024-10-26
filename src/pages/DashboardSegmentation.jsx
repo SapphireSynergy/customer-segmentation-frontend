@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import CustomerDashboard from "../components/CustomerDashboard";
 import TransactionDashboard from "../components/TransactionDashboard";
+import SegmentedSalaryEarnersDashboard from "../components/SegmentedSalaryEarnersDashboard";
 
 const DashboardSegmentation = () => {
   const [activeTab, setActiveTab] = useState("customerOverview");
@@ -35,11 +36,22 @@ const DashboardSegmentation = () => {
         >
           Transaction Overview
         </button>
+        <button
+          onClick={() => handleTabClick("segmentedOverview")}
+          className={`py-3 px-4 rounded-lg ${
+            activeTab === "segmentedOverview"
+              ? "bg-[#e04403] text-white"
+              : "bg-gray-200"
+          }`}
+        >
+          Segmented Customers Overview
+        </button>
       </div>
 
       {/* Render Active Dashboard */}
       {activeTab === "customerOverview" && <CustomerDashboard />}
       {activeTab === "transactionOverview" && <TransactionDashboard />}
+      {activeTab === "segmentedOverview" && <SegmentedSalaryEarnersDashboard />}
       {/* Add more dashboard components as needed */}
     </div>
   );
