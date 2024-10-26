@@ -6,6 +6,15 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import AddStaffs from "../components/AddStaffs";
 import LoggedInUserInfo from "../components/LoggedInUserInfo";
+import GenderPieChart from "../components/Charts/GenderPieCharts";
+import useFetchStaffData from "../components/FetchStaffData";
+import AverageTransactionAmountBarChart from "../components/Charts/AverageTransactionAmountBarChart";
+import GeoLocationDonutChart from "../components/Charts/GeoLocationDonutChart";
+// Importing icons
+import accountIcon from "../assets/bankStaffs.jpg";
+import salaryIcon from "../assets/salaryAccounts.jpg";
+import staffIcon from "../assets/totalCustomers.jpg";
+import regionIcon from "../assets/topLocation.jpg";
 
 const SummaryStatistics = () => {
   const [firstName, setFirstName] = useState("");
@@ -19,11 +28,22 @@ const SummaryStatistics = () => {
     }
   }, [userData]);
 
+  const { tableContents, fetchError, refetch } = useFetchStaffData(API_URL);
+  if (error) {
+    console.log(`Error: ${error}`);
+  }
+
   const currentDate = format(new Date(), "EEEE, dd MMMM yyyy");
   const summaryCardsList = [
-    { id: 0, title: "TOTAL ACCOUNTS", value: 5518 },
-    { id: 1, title: "SALARY ACCOUNTS DETECTED", value: "30%" },
-    { id: 2, title: "NUMBER OF STAFF", value: 8 },
+    { id: 0, title: "TOTAL ACCOUNTS", value: 5518, icon: accountIcon },
+    { id: 1, title: "SALARY ACCOUNTS DETECTED", value: 4223, icon: salaryIcon },
+    {
+      id: 2,
+      title: "NUMBER OF STAFF",
+      value: tableContents.length,
+      icon: staffIcon,
+    },
+    { id: 3, title: "TOP CUSTOMER REGION", value: "Lagos", icon: regionIcon },
   ];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,20 +82,37 @@ const SummaryStatistics = () => {
               )}
             </div>
           </motion.div>
-
-          <div className="grid grid-cols-3 gap-[20px] mb-[3rem]">
+          <h1 className="text-[19px] text-[#18181B] font-semibold mb-[15px]">
+            Key Summary
+          </h1>
+          <div className="grid grid-cols-4 gap-[20px] mb-[3rem]">
             {summaryCardsList.map((item) => (
               <SummaryCards key={item.id} summaryCard={item} />
             ))}
           </div>
 
           <h1 className="text-[19px] text-[#18181B] font-semibold mb-[15px]">
-            Statistics Summary
+            Quick Overview
           </h1>
-          <div className="p-[20px] border-2 border-[#E1E6EC] rounded-[15px] h-[20rem]">
-            <p className="text-[16px] text-[#303437]">
-              Not sure what to put here...
-            </p>
+          <div className="grid grid-cols-[0.7fr_0.5fr_1fr] gap-[20px]">
+            <div className="p-[20px] border-2 border-[#E1E6EC] rounded-[8px]">
+              <h2 className="text-[16px] text-[#303437]">
+                Gender Distribution of Customers
+              </h2>
+              <GenderPieChart />
+            </div>
+            <div className="p-[20px] border-2 border-[#E1E6EC] rounded-[8px]">
+              <h2 className="text-[16px] text-[#303437]">
+                Average Transaction Amount: [Credit vs. Debit]
+              </h2>
+              <AverageTransactionAmountBarChart />
+            </div>
+            <div className="p-[20px] border-2 border-[#E1E6EC] rounded-[8px]">
+              <h2 className="text-[16px] text-[#303437]">
+                Geographical Distribution of Customers in Nigeria
+              </h2>
+              <GeoLocationDonutChart />
+            </div>
           </div>
         </motion.div>
       </div>
