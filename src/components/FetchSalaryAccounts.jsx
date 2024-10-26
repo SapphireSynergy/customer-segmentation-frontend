@@ -10,8 +10,14 @@ const FetchSalaryAccounts = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [locationFilter, setLocationFilter] = useState("All");
+  const [stateFilter, setStateFilter] = useState("All");
   const [genderFilter, setGenderFilter] = useState("All");
   const [maritalStatusFilter, setMaritalStatusFilter] = useState("All");
+
+  const [uniqueLocations, setUniqueLocations] = useState([]);
+  const [uniqueStates, setUniqueStates] = useState([]);
+  const [uniqueGenders, setUniqueGenders] = useState([]);
+  const [uniqueMaritalStatuses, setUniqueMaritalStatuses] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +28,7 @@ const FetchSalaryAccounts = () => {
         }
         const result = await response.json();
         setData(result);
+        extractUniqueValues(result); // Call to extract unique values from the data
       } catch (error) {
         setError(error.message);
       } finally {
@@ -32,13 +39,24 @@ const FetchSalaryAccounts = () => {
     fetchData();
   }, []);
 
-  // Filtering and Searching logic
+  const extractUniqueValues = (data) => {
+    setUniqueLocations([...new Set(data.map((item) => item.Location))]);
+    setUniqueStates([...new Set(data.map((item) => item.State))]);
+    setUniqueGenders([...new Set(data.map((item) => item.Gender))]);
+    setUniqueMaritalStatuses([
+      ...new Set(data.map((item) => item.Marital_Status)),
+    ]);
+  };
+
   const filteredData = data
     .filter((item) =>
       item.Customer_ID.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .filter((item) =>
       locationFilter === "All" ? true : item.Location === locationFilter
+    )
+    .filter((item) =>
+      stateFilter === "All" ? true : item.State === stateFilter
     )
     .filter((item) =>
       genderFilter === "All" ? true : item.Gender === genderFilter
@@ -84,9 +102,24 @@ const FetchSalaryAccounts = () => {
           className="border p-2 rounded"
         >
           <option value="All">All Locations</option>
-          <option value="SS">SS</option>
-          <option value="SW">SW</option>
-          {/* Add more options as needed */}
+          {uniqueLocations.map((location) => (
+            <option key={location} value={location}>
+              {location}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={stateFilter}
+          onChange={(e) => setStateFilter(e.target.value)}
+          className="border p-2 rounded"
+        >
+          <option value="All">All States</option>
+          {uniqueStates.map((state) => (
+            <option key={state} value={state}>
+              {state}
+            </option>
+          ))}
         </select>
 
         <select
@@ -95,9 +128,11 @@ const FetchSalaryAccounts = () => {
           className="border p-2 rounded"
         >
           <option value="All">All Genders</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          {/* Add more options as needed */}
+          {uniqueGenders.map((gender) => (
+            <option key={gender} value={gender}>
+              {gender}
+            </option>
+          ))}
         </select>
 
         <select
@@ -106,16 +141,18 @@ const FetchSalaryAccounts = () => {
           className="border p-2 rounded"
         >
           <option value="All">All Marital Statuses</option>
-          <option value="Single">Single</option>
-          <option value="Married">Married</option>
-          {/* Add more options as needed */}
+          {uniqueMaritalStatuses.map((status) => (
+            <option key={status} value={status}>
+              {status}
+            </option>
+          ))}
         </select>
       </div>
 
       {/* Data Table */}
-      <div className="rounded-[15px] border-2 border-[#F1F0F0]">
+      <div className="rounded-[15px] border-2 border-[#F1F0F0] ">
         <table className="w-full text-[14px] font-['Plus Jakarta Sans'] border-collapse">
-          <thead className="border-b-3 border-[#F1F0F0] ">
+          <thead className="border-b-3 border-[#F1F0F0] bg-gray-100 ">
             <tr className="text-[#8D8885] font-semibold ">
               <th className="text-left p-[25px] pl-[20px]">Customer ID</th>
               <th className="text-left p-[25px] pl-[10px]">Location</th>
@@ -123,8 +160,6 @@ const FetchSalaryAccounts = () => {
               <th className="text-left p-[25px] pl-[10px]">Gender</th>
               <th className="text-left p-[25px] pl-[10px]">Marital Status</th>
               <th className="text-left p-[25px] pl-[10px]">Account Type</th>
-              <th className="text-left p-[25px] pl-[10px]">Age Bin</th>
-              <th className="text-left p-[25px] pl-[10px]">Age</th>
             </tr>
           </thead>
           <tbody>
@@ -141,8 +176,6 @@ const FetchSalaryAccounts = () => {
                 <td className="p-[10px]">{item.Gender}</td>
                 <td className="p-[10px]">{item.Marital_Status}</td>
                 <td className="p-[10px]">{item.Account_Type}</td>
-                <td className="p-[10px]">{item.Age_Bin}</td>
-                <td className="p-[10px]">{item.Age}</td>
               </tr>
             ))}
           </tbody>
