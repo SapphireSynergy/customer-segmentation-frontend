@@ -35,21 +35,6 @@ const StaffManagerTableContent = (props) => {
           </button>
         </td>
       </tr>
-
-      {/* The modal is rendered outside of the table */}
-
-      {/* <div>
-        <EditStaffs
-          show={isModalOpen}
-          close={closeModal}
-          dataContent={props.tableContent}
-        />
-      </div> */}
-
-      {/* Apply blur to the whole page when modal is open */}
-      {/* <div className={`${isModalOpen ? "blur-sm" : ""} `}> */}
-      {/* Your main page content (including the table) */}
-      {/* </div> */}
     </>
   );
 };

@@ -81,7 +81,7 @@ const EditStaffs = (props) => {
 
       if (response.ok) {
         alert("Staff updated successfully!");
-        props.close(); // Close the modal after success
+        props.close();
       } else {
         const errorResponse = await response.json();
         alert(

@@ -28,9 +28,11 @@ const StaffManagement = () => {
   const [selectedStaff, setSelectedStaff] = useState(null);
 
   const openAddModal = () => setIsAddModalOpen(true);
-  const closeAddModal = () => setIsAddModalOpen(false);
-  const openEditModal = () => {
-    // setSelectedStaff(staffData);
+  const closeAddModal = async () => {
+    await refetch();
+    setIsAddModalOpen(false);
+  };
+  const openEditModal = async () => {
     setIsEditModalOpen(true);
   };
   const closeEditModal = async () => {
@@ -39,8 +41,9 @@ const StaffManagement = () => {
     setIsEditModalOpen(false);
   };
   const openDeleteModal = () => setIsDeleteModalOpen(true);
-  const closeDeleteModal = () => {
+  const closeDeleteModal = async () => {
     setSelectedStaff(null);
+    await refetch();
     setIsDeleteModalOpen(false);
   };
 

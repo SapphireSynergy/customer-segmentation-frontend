@@ -28,7 +28,7 @@ const FetchSalaryAccounts = () => {
         }
         const result = await response.json();
         setData(result);
-        extractUniqueValues(result); // Call to extract unique values from the data
+        extractUniqueValues(result);
       } catch (error) {
         setError(error.message);
       } finally {

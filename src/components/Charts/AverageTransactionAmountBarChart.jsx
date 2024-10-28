@@ -5,7 +5,6 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
@@ -15,17 +14,15 @@ const data = [
 ];
 
 const AverageTransactionAmountBarChart = () => {
-  // Formatter function to append "NGN" to the y-axis values
   const formatYAxisLabel = (value) => {
-    return `NGN ${value.toLocaleString()}`; // Convert number to locale string and append "NGN"
+    return `NGN ${value.toLocaleString()}`;
   };
 
   return (
-    <ResponsiveContainer width={200} height={400}>
+    <ResponsiveContainer height={400}>
       <BarChart data={data}>
         <XAxis dataKey="name" />
         <YAxis tickFormatter={formatYAxisLabel} />{" "}
-        {/* Use formatter for y-axis */}
         <Tooltip
           formatter={(value) => [`NGN ${value.toLocaleString()}`, "Amount"]}
         />{" "}

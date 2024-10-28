@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import FetchSalaryAccounts from "../components/FetchSalaryAccounts";
 
-const AlgorithmSettings = () => {
+const SalaryAccountDetails = () => {
   return (
     <div>
       <Header />
@@ -13,4 +13,4 @@ const AlgorithmSettings = () => {
   );
 };
 
-export default AlgorithmSettings;
+export default SalaryAccountDetails;

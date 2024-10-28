@@ -7,7 +7,7 @@ const useFetchStaffData = (API_URL) => {
 
   const fetchStaffData = useCallback(async () => {
     try {
-      const token = Cookies.get("access_token"); // Get the JWT token from cookies
+      const token = Cookies.get("access_token");
       const response = await fetch(`${API_URL}/staffs`, {
         method: "GET",
         headers: {
@@ -18,7 +18,7 @@ const useFetchStaffData = (API_URL) => {
 
       if (response.ok) {
         const result = await response.json();
-        setTableContents(result.data); // Assuming result.data contains the staff array
+        setTableContents(result.data);
       } else {
         const errorResponse = await response.json();
         setError(errorResponse.detail || "Failed to fetch staff data.");
@@ -29,12 +29,11 @@ const useFetchStaffData = (API_URL) => {
     }
   }, [API_URL]);
 
-  // Fetch data initially when the component mounts
   useEffect(() => {
     fetchStaffData();
   }, [fetchStaffData]);
 
-  return { tableContents, error, refetch: fetchStaffData }; // Return the refetch function
+  return { tableContents, error, refetch: fetchStaffData };
 };
 
 export default useFetchStaffData;

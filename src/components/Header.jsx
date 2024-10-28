@@ -66,16 +66,18 @@ const Header = () => {
           >
             Analysis
           </Link>
-          <Link
-            to="/algorithm-settings"
-            className={`${
-              location.pathname === "/algorithm-settings"
-                ? "text-[#E04403] border-b-[3px] border-[#E04403] pb-[5px]"
-                : "hover:text-[#E04403] hover:border-b-[3px] hover:border-[#E04403] pb-[5px]"
-            }`}
-          >
-            Salary Accounts Details
-          </Link>
+          {isAdmin && (
+            <Link
+              to="/salary-account-details"
+              className={`${
+                location.pathname === "/salary-account-details"
+                  ? "text-[#E04403] border-b-[3px] border-[#E04403] pb-[5px]"
+                  : "hover:text-[#E04403] hover:border-b-[3px] hover:border-[#E04403] pb-[5px]"
+              }`}
+            >
+              Salary Accounts Details
+            </Link>
+          )}
         </div>
         <div className="flex gap-[1.5rem] items-center">
           <img src={accountImg} alt="account-img" className="w-[40px]" />

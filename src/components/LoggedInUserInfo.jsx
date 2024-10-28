@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode"; // Ensure this is imported correctly
+import { jwtDecode } from "jwt-decode";
 
 const LoggedInUserInfo = (API_URL) => {
   const [userData, setUserData] = useState(null);
@@ -26,7 +26,7 @@ const LoggedInUserInfo = (API_URL) => {
 
             if (response.ok) {
               const userInfo = await response.json();
-              setUserData(userInfo.data); // This will update userData
+              setUserData(userInfo.data);
             } else {
               setError("Failed to fetch user information.");
             }

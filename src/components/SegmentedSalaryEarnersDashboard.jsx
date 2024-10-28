@@ -7,9 +7,8 @@ const SegmentedSalaryEarnersDashboard = () => {
     const divElement = tableauRef.current;
     const vizElement = divElement.getElementsByTagName("object")[0];
 
-    // Set dimensions similar to TransactionDashboard component
     const containerWidth = "1250px";
-    const containerHeight = "800px"; // Adjust height as per the TransactionDashboard
+    const containerHeight = "800px";
 
     vizElement.style.width = containerWidth;
     vizElement.style.height = containerHeight;

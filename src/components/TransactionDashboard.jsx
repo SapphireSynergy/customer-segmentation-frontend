@@ -7,9 +7,8 @@ const TransactionDashboard = () => {
     const divElement = tableauRef.current;
     const vizElement = divElement.getElementsByTagName("object")[0];
 
-    // Set fixed dimensions for consistency
-    const containerWidth = "1200px"; // Match CustomerDashboard
-    const containerHeight = "950px"; // Increased height to avoid overflow
+    const containerWidth = "1200px";
+    const containerHeight = "950px";
 
     vizElement.style.width = containerWidth;
     vizElement.style.height = containerHeight;
@@ -21,7 +20,6 @@ const TransactionDashboard = () => {
 
   return (
     <div className="flex justify-center py-0 px-2">
-      {/* Remove vertical padding */}
       <div
         className="tableauPlaceholder max-w-[100%] overflow-hidden relative"
         id="viz1729862139393"

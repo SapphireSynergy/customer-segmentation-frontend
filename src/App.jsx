@@ -5,8 +5,8 @@ import SummaryStatistics from "./pages/SummaryStatistics";
 import StaffManagement from "./pages/StaffManagement";
 import ComponentViews from "./pages/ComponentViews";
 import DashboardSegmentation from "./pages/DashboardSegmentation";
-import AlgorithmSettings from "./pages/AlgorithmSettings";
-import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
+import SalaryAccountDetails from "./pages/SalaryAccountDetails";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -27,8 +27,8 @@ function App() {
             element={<PrivateRoute element={DashboardSegmentation} />}
           />
           <Route
-            path="/algorithm-settings"
-            element={<PrivateRoute element={AlgorithmSettings} />}
+            path="/salary-account-details"
+            element={<PrivateRoute element={SalaryAccountDetails} />}
           />
           <Route
             path="page-tests"

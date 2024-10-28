@@ -13,11 +13,11 @@ const data = [
   { name: "Non Salary Accounts", value: 36.03 },
 ];
 
-const COLORS = ["#e04403", "#f0a787"]; // Female: #e04403, Male: #f0a787
+const COLORS = ["#e04403", "#f0a787"];
 
 const GenderPieChart = () => {
   return (
-    <ResponsiveContainer width="100%" height={350}>
+    <ResponsiveContainer height={350}>
       <PieChart>
         <Pie
           data={data}
@@ -27,7 +27,7 @@ const GenderPieChart = () => {
           endAngle={450}
           labelLine={true}
           label={({ value }) => ` ${value}%`}
-          outerRadius={80} // Reduced radius for a smaller chart
+          outerRadius={80}
           fill="#8884d8"
           dataKey="value"
           isAnimationActive={true}
@@ -37,11 +37,7 @@ const GenderPieChart = () => {
           ))}
         </Pie>
         <Tooltip formatter={(value) => `${value}%`} />
-        <Legend
-          verticalAlign="bottom"
-          layout="vertical"
-          align="right" // Move legend to the right side
-        />
+        <Legend verticalAlign="bottom" layout="vertical" align="right" />
       </PieChart>
     </ResponsiveContainer>
   );

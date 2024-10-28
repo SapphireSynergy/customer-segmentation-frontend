@@ -48,7 +48,10 @@ const SummaryStatistics = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = async () => {
+    await refetch();
+    setIsModalOpen(false);
+  };
   return (
     <>
       <div className={`relative ${isModalOpen ? "blur-sm" : ""}`}>

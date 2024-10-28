@@ -7,9 +7,8 @@ const CustomerDashboard = () => {
     const divElement = tableauRef.current;
     const vizElement = divElement.getElementsByTagName("object")[0];
 
-    // Set fixed dimensions for consistency
-    const containerWidth = "1200px"; // Match TransactionDashboard
-    const containerHeight = "750px"; // Match TransactionDashboard height
+    const containerWidth = "1200px";
+    const containerHeight = "750px";
 
     vizElement.style.width = containerWidth;
     vizElement.style.height = containerHeight;

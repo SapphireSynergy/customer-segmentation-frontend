@@ -60,7 +60,7 @@ const AddStaffs = (props) => {
 
       if (response.ok) {
         alert("Staff created successfully!");
-        props.close(); // Close the modal after success
+        props.close();
       } else {
         const errorResponse = await response.json();
         alert(
