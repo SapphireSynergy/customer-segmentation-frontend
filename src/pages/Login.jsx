@@ -49,7 +49,7 @@ function Login() {
       </div>
 
       <div className="absolute h-screen grid place-content-center">
-        <div className=" bg-[#ffffff] px-[40px] py-[45px] drop-shadow-xl w-[440px] rounded-[20px] text-center ">
+        <div className=" bg-[#ffffff] px-[40px] py-[35px] drop-shadow-xl w-[440px] rounded-[20px] text-center ">
           <h2 className="text-[28px] text-center font-semibold pb-[15px]">
             User Login
           </h2>
@@ -72,16 +72,14 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               className="border-[1px] w-[100%] px-[10px] h-[48px] rounded-[8px] outline-none"
             />
-            <p className="text-[16px] mt-[30px] mb-[40px]">
-              Having trouble with signing in?
-              <a href="#">
-                <b>Reset password</b>
-              </a>
+            <p className="text-[16px] mt-[20px] mb-[30px]">
+              Having trouble with signing in? <br />{" "}
+              <b> Contact your administrator</b>
             </p>
             <input
               type="submit"
-              value="Sign in"
-              className="w-[100%] bg-[#E04403] rounded-[8px] h-[40px] text-white text-[13px] mb-[40px] hover:cursor-pointer"
+              value="Log in"
+              className="w-[100%] bg-[#E04403] rounded-[8px] h-[40px] text-white text-[13px] mb-[40px] hover:cursor-pointer "
             />
           </form>
           {error && <p className="text-red-500 mt-4">{error}</p>}
