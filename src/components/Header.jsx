@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import GTCOLogo from "../assets/GTBank-logo.svg";
+import GTCOLogo from "../assets/GTCO-logo.png";
 import accountImg from "../assets/UserAccount.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";

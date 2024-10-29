@@ -87,7 +87,7 @@ const FetchSalaryAccounts = () => {
   return (
     <div>
       {/* Search and Filter Controls */}
-      <div className="flex gap-4 mb-4">
+      <div className="flex gap-4 mb-4 flex-wrap">
         <input
           type="text"
           placeholder="Search by Customer ID"

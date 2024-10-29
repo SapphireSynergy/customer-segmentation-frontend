@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import GTCOLogo from "../assets/GTBank-logo.svg";
+import GTCOLogo from "../assets/GTCO-logo.png";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 
